@@ -55,9 +55,9 @@ def generate( reference_fh, candidate_fh=None, words=False, k=1, max_size=1024 )
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser(description='Generate dotplot from text')
-  parser.add_argument('-k', dest='k', type=int, default=1, help='window size')
+  parser.add_argument('-k', dest='k', type=int, default=1, help='window size (default 1)')
   parser.add_argument('-w', dest='w', type=bool, default=False, help='word as unit (default char)')
-  parser.add_argument('-m', dest='m', type=int, default=1024, help='max image size')
+  parser.add_argument('-m', dest='m', type=int, default=1024, help='max image size (default 1024)')
   #parser.add_argument('--reference', dest='reference', type=int, default=0, help='only consider alignments with at least this distance from the true location')
   args = parser.parse_args()
   print "Words is %s, %s k-mer size" % (args.w, args.k)
