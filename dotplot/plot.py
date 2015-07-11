@@ -7,15 +7,13 @@ import Image
 import re
 import sys
 
-MAX_SIZE=4096
-
 def dot(p, x, y, size, max_size):
   if size > max_size:
     x = x * max_size / size
     y = y * max_size / size
   p[x, y] = (0, 0, 0)
   
-def generate( reference_fh, candidate_fh=None, words=False, k=1 ):
+def generate( reference_fh, candidate_fh=None, words=False, k=1, max_size=1024 ):
   print "building k-mers..."
   reference = [] # pos -> kmers
   history = [''] * k # for k-mer
@@ -43,14 +41,14 @@ def generate( reference_fh, candidate_fh=None, words=False, k=1 ):
   print "building k-mers: %i positions" % pos
 
   print "creating image"
-  image = Image.new( 'RGB', (min(pos, MAX_SIZE), min(pos, MAX_SIZE)), "white" )
+  image = Image.new( 'RGB', (min(pos, max_size), min(pos, max_size)), "white" )
   pixels = image.load()
 
   print "generating dot plot"
   for x in xrange(pos):
     identity = reference[x]
     for y in candidate[identity]:
-        dot(pixels, x, y, pos, MAX_SIZE)
+        dot(pixels, x, y, pos, max_size)
 
   print "showing image"
   image.show()
@@ -59,7 +57,8 @@ if __name__ == '__main__':
   parser = argparse.ArgumentParser(description='Generate dotplot from text')
   parser.add_argument('-k', dest='k', type=int, default=1, help='window size')
   parser.add_argument('-w', dest='w', type=bool, default=False, help='word as unit (default char)')
+  parser.add_argument('-m', dest='m', type=int, default=1024, help='max image size')
   #parser.add_argument('--reference', dest='reference', type=int, default=0, help='only consider alignments with at least this distance from the true location')
   args = parser.parse_args()
   print "Words is %s, %s k-mer size" % (args.w, args.k)
-  generate( sys.stdin, candidate_fh=None, words=args.w, k=args.k )
+  generate( sys.stdin, candidate_fh=None, words=args.w, k=args.k, max_size=args.m )

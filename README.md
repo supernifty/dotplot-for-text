@@ -4,7 +4,10 @@ Dot plot for text
 
 Generate dot plots using arbitrary text input.
 
+Usage
+-----
+
 TODO
 ----
-- k-mers
 - compare different texts
+- annotate long repeats
