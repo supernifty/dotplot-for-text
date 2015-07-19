@@ -20,11 +20,12 @@ Options
 - -w: use True to compare using words instead of characters
 - -m: max image size
 - -r: reference to compare against (if not specified, file is compared against itself)
+- -a: display longest repeat
 
 Examples
 --------
-- python plot.py < sample.txt
-- python plot.py -k 4 -w True -r reference.txt < sample.txt
+- python dotplot/plot.py < data/sample.txt
+- python dotplot/plot.py -k 4 -w True -a 1 -r data/sample.txt < data/sample.txt
 
 TODO
 ----
